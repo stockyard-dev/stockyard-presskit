@@ -1,7 +1,7 @@
 package server
 import ("encoding/json";"log";"net/http";"github.com/stockyard-dev/stockyard-presskit/internal/store")
-type Server struct{db *store.DB;mux *http.ServeMux}
-func New(db *store.DB)*Server{s:=&Server{db:db,mux:http.NewServeMux()}
+type Server struct{db *store.DB;mux *http.ServeMux;limits Limits}
+func New(db *store.DB,limits Limits)*Server{s:=&Server{db:db,mux:http.NewServeMux(),limits:limits}
 s.mux.HandleFunc("GET /api/assets",s.listAssets);s.mux.HandleFunc("POST /api/assets",s.createAsset);s.mux.HandleFunc("DELETE /api/assets/{id}",s.deleteAsset)
 s.mux.HandleFunc("GET /api/facts",s.listFacts);s.mux.HandleFunc("POST /api/facts",s.createFact);s.mux.HandleFunc("DELETE /api/facts/{id}",s.deleteFact)
 s.mux.HandleFunc("GET /api/contacts",s.listContacts);s.mux.HandleFunc("POST /api/contacts",s.createContact);s.mux.HandleFunc("DELETE /api/contacts/{id}",s.deleteContact)
