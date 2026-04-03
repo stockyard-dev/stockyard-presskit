@@ -7,7 +7,9 @@ s.mux.HandleFunc("GET /api/facts",s.listFacts);s.mux.HandleFunc("POST /api/facts
 s.mux.HandleFunc("GET /api/contacts",s.listContacts);s.mux.HandleFunc("POST /api/contacts",s.createContact);s.mux.HandleFunc("DELETE /api/contacts/{id}",s.deleteContact)
 s.mux.HandleFunc("GET /api/kit",s.publicKit)
 s.mux.HandleFunc("GET /api/stats",s.stats);s.mux.HandleFunc("GET /api/health",s.health)
-s.mux.HandleFunc("GET /ui",s.dashboard);s.mux.HandleFunc("GET /ui/",s.dashboard);s.mux.HandleFunc("GET /",s.root);return s}
+s.mux.HandleFunc("GET /ui",s.dashboard);s.mux.HandleFunc("GET /ui/",s.dashboard);s.mux.HandleFunc("GET /",s.root);
+s.mux.HandleFunc("GET /api/tier",func(w http.ResponseWriter,r *http.Request){wj(w,200,map[string]any{"tier":s.limits.Tier,"upgrade_url":"https://stockyard.dev/presskit/"})})
+return s}
 func(s *Server)ServeHTTP(w http.ResponseWriter,r *http.Request){s.mux.ServeHTTP(w,r)}
 func wj(w http.ResponseWriter,c int,v any){w.Header().Set("Content-Type","application/json");w.WriteHeader(c);json.NewEncoder(w).Encode(v)}
 func we(w http.ResponseWriter,c int,m string){wj(w,c,map[string]string{"error":m})}

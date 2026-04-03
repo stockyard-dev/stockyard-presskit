@@ -31,4 +31,5 @@ async function delF(id){await api('/api/facts/'+id,{method:'DELETE'});load()}
 async function delC(id){await api('/api/contacts/'+id,{method:'DELETE'});load()}
 function closeModal(){document.getElementById('modal').innerHTML=''}
 load()
+fetch('/api/tier').then(r=>r.json()).then(j=>{if(j.tier==='free'){var b=document.getElementById('upgrade-banner');if(b)b.style.display='block'}}).catch(()=>{var b=document.getElementById('upgrade-banner');if(b)b.style.display='block'});
 </script></body></html>`
